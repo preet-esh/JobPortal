@@ -121,7 +121,7 @@ class Register extends Component {
           <div className="form-row">
           <div className="form-group col-md-6">
             <label htmlFor="profile">Profile Pic</label>
-            <input type="file" className="form-control" name="file" value={this.state.fields.file || ''} onChange={this.handleChange}/>
+            <input type="file" className="form-control" name="file" value={this.state.fields.file || ''} onChange={this.handleChange} required />
           </div>
            <div className="form-group col-md-3" >
           <label for="sel1">Industry</label>

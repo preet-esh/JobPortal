@@ -6,7 +6,7 @@ exports.create= (req, res) => {
   
   console.log(req.body);
     let emp = req.body;
-     console.log(emp);
+    // console.log(emp);
     const fname = emp.fname ? emp.fname : "";
     const lname = emp.lname ? emp.lname : "";
     const FullName = emp.FullName ? emp.FullName : "";
@@ -19,10 +19,19 @@ exports.create= (req, res) => {
     const role=emp.role ? emp.role :"";
 
     mysqlConnection.query("INSERT INTO `users`(`fname`, `lname`, `email`, `pro_pic`, `mob`, `password`, `FullName`, `Industry`, `categary`, `role`, `status`) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [fname,lname, email,file,tele,password,FullName,industry,catagary,role,'0'],function (err,result){
-        if (!err)
-        res.send(result.affectedRows + "row inserted" );
-    else{
-      res.send("error storing data!!!");
+        if (!err){
+        res.json({
+          "success": true,
+          "message": "Registered Successfully",
+          // data:result.insertId
+        });
+        console.log(result);
+      }
+    else {
+      res.json({
+          "success": false,
+          "message": "Register Cancelled",
+        });	
         console.log(err);}
     });
   }
@@ -70,26 +79,23 @@ exports.login= (req, res) => {
     if (email && password) {
       mysqlConnection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
         if (results.length > 0) {
-          res.json
-            ({
+          res.json({
               "success": true,
-              "message": "Register Successfully",
+              "message": "Login Successfully",
                "data":{}
             });
           } 
-          
          else {
-          res.json
-            ({
+          res.json({
               "success": false,
-              "message": "Register Cancelled",
+              "message": "Login Cancelled",
                "data":{}
             });
         }			
         res.end();
       });
     } else {
-      res.send('Please enter email and Password!');
+      res.send('Please enter valid email and Password!');
       res.end();
     }
   }
