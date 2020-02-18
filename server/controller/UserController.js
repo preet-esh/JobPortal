@@ -6,19 +6,7 @@ exports.create= (req, res) => {
   
   console.log(req.body);
     let emp = req.body;
-    // console.log(emp);
-    const fname = emp.fname ? emp.fname : "";
-    const lname = emp.lname ? emp.lname : "";
-    const FullName = emp.FullName ? emp.FullName : "";
-    const email = emp.email ? emp.email : "";
-    const file = emp.file ? emp.file : "";
-    const tele = emp.tele ? emp.tele : "";
-    const industry = emp.industry ? emp.industry : "";
-    const password = emp.password ? emp.password : "";
-    const catagary=emp.catagary ? emp.catagary : "";
-    const role=emp.role ? emp.role :"";
-
-    mysqlConnection.query("INSERT INTO `users`(`fname`, `lname`, `email`, `pro_pic`, `mob`, `password`, `FullName`, `Industry`, `categary`, `role`, `status`) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [fname,lname, email,file,tele,password,FullName,industry,catagary,role,'0'],function (err,result){
+  mysqlConnection.query("INSERT INTO `users` SET ?",[emp],function(err,result){
         if (!err){
         res.json({
           "success": true,
@@ -32,7 +20,8 @@ exports.create= (req, res) => {
           "success": false,
           "message": "Register Cancelled",
         });	
-        console.log(err);}
+        console.log(err);
+      }
     });
   }
   
@@ -64,7 +53,7 @@ exports.delete = (req, res) =>{
 }
 
 exports.update= (req, res) => {
-  mysqlConnection.query('UPDATE `users` SET `fname`=?,`lname`=?,`email`=?,`password`=? WHERE id=?', [req.body.fname,req.body.lname,req.body.email, req.body.password, req.params.id], function (err, result, fields) {
+  mysqlConnection.query('UPDATE `users` SET ? WHERE id=?', [req.body, req.params.id], function (err, result, fields) {
     if (!err)
     res.send(result.affectedRows + "row updated" );
 else
