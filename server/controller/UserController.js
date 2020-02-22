@@ -1,28 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const mysqlConnection=require('../cnct');
+var md5 = require('md5');
 
 exports.create= (req, res) => {
-  
-  console.log(req.body);
+  //console.log(req.body);
     let emp = req.body;
-  mysqlConnection.query("INSERT INTO `users` SET ?",[emp],function(err,result){
-        if (!err){
-        res.json({
-          "success": true,
-          "message": "Registered Successfully",
-          // data:result.insertId
-        });
-        console.log(result);
-      }
-    else {
-      res.json({
-          "success": false,
-          "message": "Register Cancelled",
-        });	
-        console.log(err);
-      }
-    });
+  //  res.send(emp);
+  res.send("kfdcx,");
+    // let std = req.body;
+    // let obj = {};
+    // console.log(std.fname);
+    // obj = {'firaNAME':std.fname,'lastname':std.lname}
+    // console.log(obj);
+    // emp.password=md5(emp.password);
+    // console.log(emp);
+  //res.send(filename);
+//     console.log(path);
+// //res.send(emp);
+  //   mysqlConnection.query('SELECT * FROM users WHERE email = ? OR mob = ?', [req.body.email,req.body.mob], (err, rows, fields) => {
+  //     if (rows.length==0){
+  //           mysqlConnection.query("INSERT INTO `users` SET ?",[emp],function(err,result){
+  //           if (!err){
+  //              res.json({"success": true,"message": "Registered Successfully"});
+  //           console.log(result);
+  //         }
+  //       else {
+  //         res.json({"success": false,"message": "Register Cancelled"});	
+  //           console.log(err);
+  //         }
+  //       });
+  //     }   
+  //     else
+  //         res.send("email or number already registered");
+  // })
+  
   }
   
 exports.findAll= (req, res) => {
@@ -71,14 +83,14 @@ exports.login= (req, res) => {
           res.json({
               "success": true,
               "message": "Login Successfully",
-               "data":{}
+              
             });
           } 
          else {
           res.json({
               "success": false,
               "message": "Login Cancelled",
-               "data":{}
+               
             });
         }			
         res.end();

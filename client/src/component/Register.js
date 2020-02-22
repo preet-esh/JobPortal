@@ -55,7 +55,16 @@ class Register extends Component {
       this.setState({errors: errors});
       return formIsValid;
     }
-  handleChange(e) {
+  configPass=(ps)=>{
+    let p1=document.getElementById('pass1').value;
+    let p2=ps.target.value;
+    let err=document.getElementById('passErr');
+    if(p2==="" || p1===p2)
+    err.innerHTML="";
+    if(p1!==p2)
+    err.innerHTML="Password Not Match!!!!";
+  }
+  handleChange=(e)=>{
     let fields = this.state.fields;
        //console.log(fields[e.target.name]);
         fields[e.target.name] = e.target.value;
@@ -88,34 +97,35 @@ class Register extends Component {
           <div className="form-row">
             <div className="form-group col-md-6" >
             <label htmlFor="name">FirstName</label>
-            <input type="text" className="form-control" name="fname" placeholder="Enter FirstName" value={this.state.fields.fname || ''} onChange={this.handleChange} />
+            <input type="text" className="form-control" name="fname" placeholder="Enter FirstName" value={this.state.fields.fname || ''} onChange={this.handleChange} required />
             <span style={{color: "red"}}>{this.state.errors["fname"]}</span>
           </div> 
           <div className="form-group col-md-6" >
             <label htmlFor="name">LastName</label>
-            <input type="text" className="form-control" name="lname" placeholder="Enter LastName" value={this.state.fields.lname || ''} onChange={this.handleChange} />
+            <input type="text" className="form-control" name="lname" placeholder="Enter LastName" value={this.state.fields.lname || ''} onChange={this.handleChange} required />
             <span style={{color: "red"}}>{this.state.errors["lname"]}</span>
           </div>
           </div>          
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            <input type="email" className="form-control" name="email" placeholder="email@example.com" value={this.state.fields.email || ''} onChange={this.handleChange}/>
+            <input type="email" className="form-control" name="email" placeholder="email@example.com" value={this.state.fields.email || ''} onChange={this.handleChange} required />
             <span style={{color: "red"}}>{this.state.errors["email"]}</span>
 
           </div>
           <div className="form-group" >
             <label htmlFor="tele">MobileNumber</label>
-            <input type="tel" className="form-control" name="tele" placeholder="Enter Number" value={this.state.fields.tele || ''} onChange={this.handleChange} />
+            <input type="tel" className="form-control" name="mob" placeholder="Enter Number" value={this.state.fields.mob || ''} onChange={this.handleChange} required />
           </div>
           
           <div className="form-row">
            <div className="form-group col-md-6" >
             <label htmlFor="password">Password</label>
-            <input type="password" className="form-control" name="password" placeholder="Enter Password" value={this.state.fields.password || ''} onChange={this.handleChange} autoComplete="off"/>
+            <input type="password" id="pass1" className="form-control" name="password" placeholder="Enter Password" value={this.state.fields.password || ''} onChange={this.handleChange} onBlur={this.configPass} required autoComplete="off"/>
           </div> 
           <div className="form-group col-md-6">
             <label htmlFor="password2">Confirm Password</label>
-            <input type="password" className="form-control" name="password2" placeholder="ReEnter Password" value={this.state.fields.password2 || ''} onChange={this.handleChange} autoComplete="off"/>
+            <input type="password" className="form-control" name="password2" placeholder="ReEnter Password" onBlur={this.configPass} required autoComplete="off" />
+            <span id="passErr" style={{color: "red"}}></span>
           </div>          
           </div>
           <div className="form-row">
@@ -124,17 +134,19 @@ class Register extends Component {
             <input type="file" className="form-control" name="file" value={this.state.fields.file || ''} onChange={this.handleChange} required />
           </div>
            <div className="form-group col-md-3" >
-          <label for="sel1">Industry</label>
-          <select class="form-control" name="industry" value={this.state.fields.industry || ''} onChange={this.handleChange} >
+          <label htmlFor="sel1">Industry</label>
+          <select className="form-control" name="industry" value={this.state.fields.industry || ''} onChange={this.handleChange} required >
+            <option>SELECT</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
             <option>4</option>
           </select>
           </div>
-          <div class="form-group col-md-3">
-          <label for="sel1">categary</label>
-          <select class="form-control" id="catagary" name="catagary" value={this.state.fields.catagary || ''} onChange={this.handleChange}>
+          <div className="form-group col-md-3">
+          <label htmlFor="sel1">Categary</label>
+          <select className="form-control" id="catagary" name="catagary" value={this.state.fields.catagary || ''} onChange={this.handleChange}>
+             <option>SELECT</option>
             <option>A</option>
             <option>B</option>
             <option>C</option>
