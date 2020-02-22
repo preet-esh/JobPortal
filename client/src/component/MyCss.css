@@ -25,8 +25,9 @@ p{
     font-size: 15px;
 }
 .container a:hover{
-    background-color:rgb(0, 0, 255);
-    border-radius: 15px;
+ 
+    font-weight: bolder;
+
 }	
 
 .dropdown-menu{
@@ -40,7 +41,6 @@ p{
     margin: 10px 0;
 }
 .dropdown-menu a:hover{
-    border-radius: 10px;
     text-decoration: none;
-    color:white;
+    font-style: italic;
 }

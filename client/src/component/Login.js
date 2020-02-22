@@ -21,10 +21,25 @@ class Login extends Component {
     const userData = this.state.fields;
     //console.log(this.state.fields);
     axios.post(`http://localhost:5000/login`,userData)
-    .then((res) => {console.log(res);
-     window.location.assign('/dashboard');
+    .then((res) => {
+      console.log(res);
+      console.log(res.data.info);
+      console.log(res.data.success);
+      if(res.data.success===false){
+        localStorage.setItem('Login_Status',0);
+        localStorage.setItem('Login_Data',"");
+        alert("Wrong Id/Password!!!!");
+      }
+      else if(res.data.success===true){
+        console.log("success");
+        localStorage.setItem('Login_Status',1);
+        localStorage.setItem('Login_Data',JSON.stringify(res.data.info.results));
+        //window.location.assign('/dashboard');
+      }
+      else{
+        alert("error!!!")
+      }
     })
-
     .catch((err)=> {console.log(err); alert("Error login") })
   }
     render() {

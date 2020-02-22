@@ -2,38 +2,32 @@ const express = require('express');
 const router = express.Router();
 const mysqlConnection=require('../cnct');
 var md5 = require('md5');
+var jwt = require('jsonwebtoken');
+
 
 exports.create= (req, res) => {
   //console.log(req.body);
-    let emp = req.body;
-  //  res.send(emp);
-  res.send("kfdcx,");
-    // let std = req.body;
-    // let obj = {};
-    // console.log(std.fname);
-    // obj = {'firaNAME':std.fname,'lastname':std.lname}
-    // console.log(obj);
-    // emp.password=md5(emp.password);
-    // console.log(emp);
-  //res.send(filename);
 //     console.log(path);
-// //res.send(emp);
-  //   mysqlConnection.query('SELECT * FROM users WHERE email = ? OR mob = ?', [req.body.email,req.body.mob], (err, rows, fields) => {
-  //     if (rows.length==0){
-  //           mysqlConnection.query("INSERT INTO `users` SET ?",[emp],function(err,result){
-  //           if (!err){
-  //              res.json({"success": true,"message": "Registered Successfully"});
-  //           console.log(result);
-  //         }
-  //       else {
-  //         res.json({"success": false,"message": "Register Cancelled"});	
-  //           console.log(err);
-  //         }
-  //       });
-  //     }   
-  //     else
-  //         res.send("email or number already registered");
-  // })
+
+    let emp = req.body;
+    emp.password=md5(emp.password);
+    console.log(emp);
+    mysqlConnection.query('SELECT * FROM users WHERE email = ? OR mob = ?', [req.body.email,req.body.mob], (err, rows, fields) => {
+      if (rows.length==0){
+            mysqlConnection.query("INSERT INTO `users` SET ?",[emp],function(err,result){
+            if (!err){
+               res.json({"success": true,"message": "Registered Successfully"});
+            console.log(result);
+          }
+        else {
+          res.json({"success": false,"message": "Register Cancelled"});	
+            console.log(err);
+          }
+        });
+      }   
+      else
+          res.send("email or number already registered");
+  })
   
   }
   
@@ -75,7 +69,7 @@ else
 
 exports.login= (req, res) => {
     var email = req.body.email;
-    var password = req.body.password;
+    var password = md5(req.body.password);
     console.log(req.body);
     if (email && password) {
       mysqlConnection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
@@ -83,14 +77,14 @@ exports.login= (req, res) => {
           res.json({
               "success": true,
               "message": "Login Successfully",
-              
+              info:{results}
             });
           } 
          else {
           res.json({
               "success": false,
               "message": "Login Cancelled",
-               
+              info:{results}
             });
         }			
         res.end();

@@ -81,8 +81,7 @@ class Register extends Component {
       .then((res) => {
         console.log(res);
         console.log(res.data);
-          alert("Registered successfully")
-        
+          alert("Registered successfully");
       })
       .catch((err)=> {console.log(err); })
   
