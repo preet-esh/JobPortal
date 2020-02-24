@@ -3,15 +3,13 @@ const router = express.Router();
 const mysqlConnection=require('../cnct');
 var md5 = require('md5');
 var jwt = require('jsonwebtoken');
-
+const config=require("../config/key")
 
 exports.create= (req, res) => {
-  //console.log(req.body);
-//     console.log(path);
 
     let emp = req.body;
     emp.password=md5(emp.password);
-    console.log(emp);
+
     mysqlConnection.query('SELECT * FROM users WHERE email = ? OR mob = ?', [req.body.email,req.body.mob], (err, rows, fields) => {
       if (rows.length==0){
             mysqlConnection.query("INSERT INTO `users` SET ?",[emp],function(err,result){
@@ -74,17 +72,22 @@ exports.login= (req, res) => {
     if (email && password) {
       mysqlConnection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
         if (results.length > 0) {
+          var token=jwt.sign({email:results[0].email},config.SECRET_KEY,{
+            expiresIn:5000
+        });
+        console.log(token);
           res.json({
               "success": true,
               "message": "Login Successfully",
-              info:{results}
+              "token":token,
+              results
             });
           } 
          else {
           res.json({
               "success": false,
               "message": "Login Cancelled",
-              info:{results}
+              // info:{results}
             });
         }			
         res.end();

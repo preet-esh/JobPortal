@@ -34,7 +34,7 @@ class Login extends Component {
         console.log("success");
         localStorage.setItem('Login_Status',1);
         localStorage.setItem('Login_Data',JSON.stringify(res.data.info.results));
-        //window.location.assign('/dashboard');
+        window.location.assign('/dashboard');
       }
       else{
         alert("error!!!")
