@@ -33,7 +33,8 @@ class Login extends Component {
       else if(res.data.success===true){
         console.log("success");
         localStorage.setItem('Login_Status',1);
-        localStorage.setItem('Login_Data',JSON.stringify(res.data.info.results));
+        localStorage.setItem('Login_Data',JSON.stringify(res.data.results));
+        localStorage.setItem('Login_Token',JSON.stringify(res.data.token));
         window.location.assign('/dashboard');
       }
       else{

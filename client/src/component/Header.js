@@ -20,7 +20,7 @@ class Header extends React.Component{
            <div className="container">
                <a className="navbar-brand" href="/"><h1>JobSeeker</h1></a>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
-                {this.state.LogStage==0?
+                {this.state.LogStage==='0'?
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item"><a className="nav-link" href="/">Post a Resume</a></li>
                     <li className="nav-item"><a className="nav-link" href="/login">Login</a></li>

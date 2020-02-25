@@ -97,3 +97,20 @@ exports.login= (req, res) => {
       res.end();
     }
   }
+
+  exports.getIndus= (req, res) => {
+    mysqlConnection.query('SELECT * FROM industry', (err, rows, fields) => {
+      if (!err)
+          res.send(rows);
+      else
+          console.log(err);
+  })
+  }
+  exports.getCatgry= (req, res) => {
+    mysqlConnection.query('SELECT * FROM categary', (err, rows, fields) => {
+      if (!err)
+          res.send(rows);
+      else
+          console.log(err);
+  })
+  }

@@ -7,4 +7,7 @@ module.exports =function(app){
   app.get('/users/:id',user.findById);
   app.put('/userupdate/:id',user.update);
   app.delete('/users/:id',user.delete);
+
+  app.get('/getIndus',user.getIndus);
+  app.get('/getCatgry',user.getCatgry);
 }

@@ -1,5 +1,5 @@
 body{
-    background-image: url(./img/job.png);
+    background-image: url(./img/main.jpg);
     background-position: fixed;
       filter: blur(.5px);
      background-size: cover;
@@ -12,7 +12,10 @@ body{
     border:2px white solid;
     box-shadow: 2px 7px #888888;
     font-size:17px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.5);
+}
+.signup form{
+    margin-top: 5vh;
 }
 
 label{
@@ -25,9 +28,7 @@ p{
     font-size: 15px;
 }
 .container a:hover{
- 
     font-weight: bolder;
-
 }	
 
 .dropdown-menu{

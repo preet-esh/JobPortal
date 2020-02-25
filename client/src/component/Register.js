@@ -6,9 +6,22 @@ const axios = require('axios');
 class Register extends Component {
   constructor(props){
     super();
-    this.state={fields:{} ,errors: {}}
+    this.state={fields:{} ,errors: {},industry:[],catagary:[]}
     this.handleChange = this.handleChange.bind(this);
     this.submitLogin = this.submitLogin.bind(this);
+  }
+  async componentDidMount(){
+    const url = "http://localhost:5000/getIndus";
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    this.setState({industry:data});
+  
+    const URLs="http://localhost:5000/getCatgry";
+    const res = await fetch(URLs);
+    const dta = await res.json();
+    console.log(dta);
+    this.setState({catagary:dta});
   }
   handleValidation(){
      let fields = this.state.fields;
@@ -90,6 +103,7 @@ class Register extends Component {
    }
       }
   render() {
+
     return (
       <div className="signup">       
         <form className="px-4 py-3" encType="multipart/form-data" onSubmit= {this.submitLogin} >
@@ -135,21 +149,15 @@ class Register extends Component {
            <div className="form-group col-md-3" >
           <label htmlFor="sel1">Industry</label>
           <select className="form-control" name="industry" value={this.state.fields.industry || ''} onChange={this.handleChange} required >
-            <option>SELECT</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+            <option value="null">SELECT</option>
+            {this.state.industry.map((Dot, i)=> (<option key={i}>{Dot.NAME}</option> ))}
           </select>
           </div>
           <div className="form-group col-md-3">
           <label htmlFor="sel1">Categary</label>
           <select className="form-control" id="catagary" name="catagary" value={this.state.fields.catagary || ''} onChange={this.handleChange}>
-             <option>SELECT</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>D</option>
+            <option value="null">SELECT</option>
+            {this.state.catagary.map((Dots, i)=> (<option key={i}>{Dots.name}</option> ))}
           </select>
           </div>
           </div>
